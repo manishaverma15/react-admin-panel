@@ -1,10 +1,11 @@
 import React from 'react';
+import RegisterUser from './components/registerForm/RegisterUser';
 
 function App() {
   return (
-    <div>
-     <h1>Admin panel</h1>
-    </div>
+    <>
+      <RegisterUser />
+    </>
   );
 }
 
