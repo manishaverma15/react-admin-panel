@@ -1,0 +1,33 @@
+.register-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.register-paper {
+  padding: 20px;
+  margin: auto;
+  width: 300px;
+}
+
+.text-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.new-account {
+  margin-top: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-account h6 {
+  margin-right: 10px;
+}
+
+.new-account button {
+  color: #fff;
+  width: 100px;
+  text-transform: none;
+}
