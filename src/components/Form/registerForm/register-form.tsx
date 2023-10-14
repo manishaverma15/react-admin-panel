@@ -6,9 +6,9 @@ import { AppDispatch } from '../../../store';
 import { User } from '../../../services/auth';
 import { userRegistered } from '../authSlice';
 import { v4 as uuidv4 } from 'uuid';
+import { Link } from 'react-router-dom';
 
-
-const RegisterUser = () => {
+const RegisterForm = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [formData, setFormData] = useState<User>({
@@ -102,9 +102,11 @@ const RegisterUser = () => {
           <Grid style={{ textAlign: 'center' }}>
             <Box className='already-account'>
               <h6>Already have an account?</h6>
-              <Button variant='contained' color='primary'>
-                Login
-              </Button>
+              <Link to='/login'>
+                <Button variant='contained' color='primary'>
+                  Login
+                </Button>
+              </Link>
             </Box>
           </Grid>
         </Grid>
@@ -113,4 +115,4 @@ const RegisterUser = () => {
   );
 };
 
-export default RegisterUser;
+export default RegisterForm;
