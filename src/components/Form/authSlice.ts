@@ -1,24 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppDispatch } from '../../store';
-import { User, registerUser as registerUserAPI } from '../../services/auth';
-
+import { User, registerUser as registerUserAPI, loginUser as loginUserAPI } from '../../services/auth';
 
 type State = {
-  data: User[];
+  data: User | null;
   loading: boolean;
   error: any
 }
 
 const initialState: State = {
-  data: [],
+  data: null,
   loading: false,
   error: null,
 };
 
-export const userRegistered = (user: any) => async (dispatch: AppDispatch) => {
+export const userLoggedIn = (credentials: {email: string, password: string} ) => async (dispatch: AppDispatch) => {
   try {
-    const users = await registerUserAPI(user);
-    dispatch(addUser(users))
+    const user = await loginUserAPI(credentials);
+    return user;
+  } catch (error) {
+    console.log('error',error)
+  }
+};
+
+export const userRegistered = (user: User) => async (dispatch: AppDispatch) => {
+  try {
+    const registeredUser = await registerUserAPI(user);
+    dispatch(setUser(registeredUser))
 
   } catch (error: any) {
     console.log(error)
@@ -29,21 +37,8 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    fetchStart: (state: any) => {
-      state.loading = true;
-      state.error = null;
-    },
-    fetchSuccess: (state: any, action: any) => {
-      state.loading = false;
-      state.user = action.payload;
-      state.error = null;
-    },
-    fetchError: (state: any, action: any) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    addUser: (state, action) => {
-      state.data.push(action.payload);
+    setUser: (state, action) => {
+      state.data = action.payload
     },
     logout: (state: any) => {
       state.user = null;
@@ -53,5 +48,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { fetchStart, fetchSuccess, fetchError, logout, addUser } = authSlice.actions;
+export const { logout, setUser } = authSlice.actions;
 export default authSlice.reducer;
