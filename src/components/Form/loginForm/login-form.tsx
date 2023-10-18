@@ -75,14 +75,10 @@ const LoginForm = () => {
                 Login
               </Button>
             </Grid>
-            <Grid style={{ textAlign: 'center' }}>
+            <Grid style={{ textAlign: 'center', margin: 'auto' }}>
               <Box className='new-account'>
-                <h6>Do not have an account? Please Register</h6>
-                <Link to='/register'>
-                  <Button variant='contained' color='primary'>
-                    Register
-                  </Button>
-                </Link>
+                <h6>Do not have an account?</h6>
+                <Link to='/register'>Register</Link>
               </Box>
             </Grid>
           </Grid>

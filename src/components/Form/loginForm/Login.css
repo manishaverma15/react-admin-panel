@@ -19,7 +19,7 @@
 .new-account {
   margin-top: 15px;
   align-items: center;
-  justify-content: center;
+  display: flex;
 }
 
 .new-account h6 {
