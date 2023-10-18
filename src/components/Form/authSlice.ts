@@ -14,18 +14,18 @@ const initialState: State = {
   error: null,
 };
 
-export const userLoggedIn = (credentials: {email: string, password: string} ) => async (dispatch: AppDispatch) => {
+export const userLoggedIn = (credentials: { email: string, password: string }) => async (dispatch: AppDispatch) => {
   try {
     const user = await loginUserAPI(credentials);
     return user;
   } catch (error) {
-    console.log('error',error)
+    console.log('error', error)
   }
 };
 
-export const userRegistered = (user: User) => async (dispatch: AppDispatch) => {
+export const userRegistered = (formData: Omit<User, 'id'>) => async (dispatch: AppDispatch) => {
   try {
-    const registeredUser = await registerUserAPI(user);
+    const registeredUser = await registerUserAPI(formData);
     dispatch(setUser(registeredUser))
 
   } catch (error: any) {
