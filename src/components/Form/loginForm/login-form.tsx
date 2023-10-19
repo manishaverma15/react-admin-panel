@@ -5,12 +5,25 @@ import './Login.css';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../store';
 import { userLoggedIn } from '../authSlice';
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const validationSchema = yup.object().shape({
+  email: yup.string().email('Invalid email').required('Email is required'),
+  password: yup.string().required('Password is required'),
+});
+
 
 const LoginForm = () => {
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch<AppDispatch>();
+
+  const { handleSubmit, control, formState: { errors } } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
 
   const [formData, setFormData] = useState({
     email: '',
@@ -30,16 +43,15 @@ const LoginForm = () => {
     navigate('/dashboard');
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
-    console.log('form-data', formData);
-
     dispatch(userLoggedIn({ email: formData.email, password: formData.password }));
-
     setFormData({
       email: '',
       password: '',
     });
+
+    handleNavigate();
   };
 
   return (
@@ -48,30 +60,56 @@ const LoginForm = () => {
         <div>
           <h4 style={{ textAlign: 'center' }}>To login fill the credentials</h4>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField
-                name='email'
-                id='outlined-basic'
-                label='Email'
-                variant='outlined'
-                fullWidth
-                onChange={handleChange}
+              <Controller
+                name="email"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    name='email'
+                    id='outlined-basic'
+                    label='Email'
+                    variant='outlined'
+                    fullWidth
+                    value={formData.email}
+                    onChange={handleChange}
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                name='password'
-                id='outlined-basic'
-                label='Password'
-                variant='outlined'
-                fullWidth
-                onChange={handleChange}
+              <Controller
+                name="password"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    name='password'
+                    id='outlined-basic'
+                    label='Password'
+                    variant='outlined'
+                    fullWidth
+                    value={formData.password}
+                    onChange={handleChange}
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={12} style={{ textAlign: 'center' }}>
-              <Button variant='contained' color='primary' style={{ textTransform: 'none' }} onClick={handleNavigate}>
+              <Button variant='contained'
+                color='primary'
+                style={{ textTransform: 'none' }}
+                type='submit'
+              >
                 Login
               </Button>
             </Grid>

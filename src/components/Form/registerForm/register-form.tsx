@@ -7,7 +7,7 @@ import { User } from '../../../services/auth';
 import { userRegistered } from '../authSlice';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
-import { useForm, Controller, Form } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const validationSchema = yup.object().shape({
@@ -85,7 +85,7 @@ const RegisterForm = () => {
                     name='name'
                     variant='outlined'
                     className='text-field'
-                    value={field.value}
+                    value={initialValues.name}
                     onChange={handleChange}
                     fullWidth
                     error={!!errors.name}
@@ -106,7 +106,7 @@ const RegisterForm = () => {
                     label='Email'
                     name='email'
                     variant='outlined'
-                    value={field.value}
+                    value={initialValues.email}
                     onChange={handleChange}
                     fullWidth
                     error={!!errors.email}
@@ -127,7 +127,7 @@ const RegisterForm = () => {
                     label='Password'
                     name='password'
                     variant='outlined'
-                    value={field.value}
+                    value={initialValues.password}
                     onChange={handleChange}
                     fullWidth
                     error={!!errors.password}
@@ -148,7 +148,7 @@ const RegisterForm = () => {
                     label='Phone Number'
                     variant='outlined'
                     name='phoneNumber'
-                    value={field.value}
+                    value={initialValues.phoneNumber}
                     onChange={handleChange}
                     fullWidth
                     error={!!errors.phoneNumber}
