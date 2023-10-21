@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TextField, Paper, Grid, Button, Box } from '@mui/material';
 import './Register.css';
 import { useDispatch } from 'react-redux';
@@ -12,7 +12,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 const validationSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
+  email: yup.string().email('Invalid email').required('Email is required').test(
+    'is-valid-domain',
+    'Invalid email domain',
+    function (value) {
+      if (value) {
+        const validDomains = ['.com', '.org', '.net'];
+        const emailDomain = value.split('.').pop();
+        return validDomains.includes(`.${emailDomain}`);
+      }
+      return true;
+    }
+  ),
   password: yup
     .string()
     .required('Password is required')
@@ -32,149 +43,124 @@ const RegisterForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-    setError,
-    reset,
+    reset
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
-  const [initialValues, setinitialValues] = useState<Omit<User, 'id'>>({
-    name: '',
-    email: '',
-    password: '',
-    phoneNumber: '',
-  })
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setinitialValues({
-      ...initialValues,
-      [e.target.name]: e.target.value,
-    })
-  }
-
-  const onSubmit = (e: any) => {
-    e.preventDefault();
-    dispatch(userRegistered(initialValues));
-
-    setinitialValues({
-      name: '',
-      email: '',
-      password: '',
-      phoneNumber: ''
-    })
+  const onSubmit = (data: Omit<User, 'id'>) => {
+    dispatch(userRegistered(data));
+    reset();
   };
 
   return (
-    <Box className='register-container'>
-      <Paper elevation={3} className='register-paper'>
-        <Box>
-          <h2 style={{ textAlign: 'center' }}>To register fill the details</h2>
-        </Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Controller
-                name="name"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id='outlined-basic'
-                    label='Name'
-                    name='name'
-                    variant='outlined'
-                    className='text-field'
-                    value={initialValues.name}
-                    onChange={handleChange}
-                    fullWidth
-                    error={!!errors.name}
-                    helperText={errors.name?.message}
+    <Box className='main-container'>
+      <Box className='register-container'>
+        <Paper elevation={3} className='register-subContainer'>
+          <Box className='join-us'>
+            <h4 className='title'>Join us today</h4>
+            <span className='title'>Enter your details to register</span>
+          </Box>
+          <Box>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Controller
+                    name="name"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        id='outlined-basic'
+                        label='Name'
+                        name='name'
+                        variant='outlined'
+                        className='text-field'
+                        fullWidth
+                        error={!!errors.name}
+                        helperText={errors.name?.message}
+                      />
+                    )}
                   />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Controller
-                name="email"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id='outlined-basic'
-                    label='Email'
-                    name='email'
-                    variant='outlined'
-                    value={initialValues.email}
-                    onChange={handleChange}
-                    fullWidth
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
+                </Grid>
+                <Grid item xs={12}>
+                  <Controller
+                    name="email"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        id='outlined-basic'
+                        label='Email'
+                        name='email'
+                        variant='outlined'
+                        fullWidth
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                      />
+                    )}
                   />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Controller
-                name="password"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id='outlined-basic'
-                    label='Password'
-                    name='password'
-                    variant='outlined'
-                    value={initialValues.password}
-                    onChange={handleChange}
-                    fullWidth
-                    error={!!errors.password}
-                    helperText={errors.password?.message}
+                </Grid>
+                <Grid item xs={12}>
+                  <Controller
+                    name="password"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        id='outlined-basic'
+                        label='Password'
+                        name='password'
+                        variant='outlined'
+                        fullWidth
+                        error={!!errors.password}
+                        helperText={errors.password?.message}
+                      />
+                    )}
                   />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Controller
-                name="password"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id='outlined-basic'
-                    label='Phone Number'
-                    variant='outlined'
-                    name='phoneNumber'
-                    value={initialValues.phoneNumber}
-                    onChange={handleChange}
-                    fullWidth
-                    error={!!errors.phoneNumber}
-                    helperText={errors.phoneNumber?.message}
+                </Grid>
+                <Grid item xs={12}>
+                  <Controller
+                    name="phoneNumber"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        id='outlined-basic'
+                        label='Phone Number'
+                        variant='outlined'
+                        name='phoneNumber'
+                        fullWidth
+                        error={!!errors.phoneNumber}
+                        helperText={errors.phoneNumber?.message}
+                      />
+                    )}
                   />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12} style={{ textAlign: 'center' }}>
-              <Button variant='contained' color='primary'
-                style={{ textTransform: 'none' }}
-                type='submit'
-              >
-                Register
-              </Button>
-            </Grid>
+                </Grid>
+                <Grid item xs={12} style={{ textAlign: 'center' }}>
+                  <Button variant='contained' color='primary'
+                    style={{ textTransform: 'none' }}
+                    type='submit'
+                  >
+                    Register
+                  </Button>
+                </Grid>
 
-            <Grid style={{ textAlign: 'center', margin: 'auto' }}>
-              <Box className='already-account'>
-                <h6>Already have an account?</h6>
-                <Link to='/login'>login</Link>
-              </Box>
-            </Grid>
-          </Grid>
-        </form>
-      </Paper>
+                <Grid style={{ textAlign: 'center', margin: 'auto' }}>
+                  <Box className='already-account'>
+                    <h6>Already have an account?</h6>
+                    <Link to='/login'>login</Link>
+                  </Box>
+                </Grid>
+              </Grid>
+            </form>
+          </Box>
+        </Paper>
+      </Box>
     </Box>
   );
 };
