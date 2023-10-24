@@ -1,11 +1,23 @@
-.register-container {
+.main-container {
+  background-image: url('../../../../public/images/milky-way-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title {
+  text-align: 'center';
+  color: white !important;
+  font-family: 'Roboto', 'Helvetica', 'Arial', 'sans-serif';
+}
+
+.login-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  height: 100vh;
 }
 
-.register-paper {
+.login-subContainer {
   padding: 20px;
   margin: auto;
   width: 300px;
@@ -30,4 +42,14 @@
   color: #fff;
   width: 100px;
   text-transform: none;
+}
+
+.join-us {
+  margin: -44px 16px 8px;
+  padding: 24px;
+  text-align: center;
+  opacity: 1;
+  background: linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232));
+  color: rgb(52, 71, 103);
+  border-radius: 0.5rem;
 }
