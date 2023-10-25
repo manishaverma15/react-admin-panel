@@ -9,66 +9,31 @@ import { Dashboard } from '@material-ui/icons';
 import TableViewIcon from '@mui/icons-material/TableView';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 
-export const mailFolderListItems = (
-  <div>
-    <ListItem button>
-      <ListItemIcon>
-        <Dashboard />
-      </ListItemIcon>
-      <ListItemText primary="DashBoard" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <TableViewIcon />
-      </ListItemIcon>
-      <ListItemText primary="Tables" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <Send />
-      </ListItemIcon>
-      <ListItemText primary="Send Mail" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <Drafts />
-      </ListItemIcon>
-      <ListItemText primary="Drafts" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <MailIcon />
-      </ListItemIcon>
-      <ListItemText primary="Mail" />
-    </ListItem>
-  </div>
-);
+const folderListItems = [
+  { icon: <Dashboard />, text: 'DashBoard' },
+  { icon: <TableViewIcon />, text: 'Tables' },
+  { icon: <Send />, text: 'Send Mail' },
+  { icon: <Drafts />, text: 'Drafts' },
+  { icon: <MailIcon />, text: 'Mail' },
+];
 
-export const otherMailFolderListItems = (
-  <div>
-    <ListItem button>
-      <ListItemIcon>
-        <InboxIcon />
-      </ListItemIcon>
-      <ListItemText primary="Inbox" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <StarRate />
-      </ListItemIcon>
-      <ListItemText primary="Starred" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ReceiptLongIcon />
-      </ListItemIcon>
-      <ListItemText primary="Billing" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <MailIcon />
-      </ListItemIcon>
-      <ListItemText primary="Spam" />
-    </ListItem>
-  </div>
-);
+const otherFolderListItems = [
+  { icon: <InboxIcon />, text: 'Inbox' },
+  { icon: <StarRate />, text: 'Starred' },
+  { icon: <ReceiptLongIcon />, text: 'Billing' },
+  { icon: <MailIcon />, text: 'Spam' },
+];
+
+export const mailFolderListItems = folderListItems.map((item, index) => (
+  <ListItem button key={index}>
+    <ListItemIcon>{item.icon}</ListItemIcon>
+    <ListItemText primary={item.text} />
+  </ListItem>
+));
+
+export const otherMailFolderListItems = otherFolderListItems.map((item, index) => (
+  <ListItem button key={index}>
+    <ListItemIcon>{item.icon}</ListItemIcon>
+    <ListItemText primary={item.text} />
+  </ListItem>
+));
