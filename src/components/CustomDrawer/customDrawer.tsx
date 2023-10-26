@@ -13,6 +13,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from '../../Icons/icons';
+import { Box } from '@mui/material';
+import { CustomCards } from '../CustomCards/customCards';
 
 const drawerWidth = 240;
 
@@ -131,8 +133,9 @@ const MiniDrawer = ({ theme }: any) => {
         <List>{otherMailFolderListItems}</List>
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
+        <Box>
+          <CustomCards />
+        </Box>
       </main>
     </div>
   );
