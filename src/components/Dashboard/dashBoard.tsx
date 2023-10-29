@@ -1,33 +1,14 @@
 import React from 'react';
-import { CssBaseline } from '@mui/material';
-import Sidebar from './sideBar';
-// import { useStyles } from './styles';
+import { Box } from '@mui/material';
 import './styles.css';
-
-const drawerWidth = 240;
-
-// const useStyles = makeStyles((theme: any) => ({
-//   root: {
-//     display: 'flex',
-//   },
-//   content: {
-//     flexGrow: 1,
-//     padding: theme.spacing(3),
-//   },
-// }));
+import { CustomCards } from '../CustomCards/customCards';
+import { CustomTableCards } from '../CustomTableCards/customChartsCards';
 
 export const DashBoardScreen = () => {
-  // const classes = useStyles();
-
   return (
-    <>
-      <div className='rootStyle'>
-        <CssBaseline />
-        <Sidebar />
-        <main className='content'>
-          <div className='toolbar' />
-        </main>
-      </div>
-    </>
+    <Box>
+      <CustomCards />
+      <CustomTableCards/>
+    </Box>
   )
 }

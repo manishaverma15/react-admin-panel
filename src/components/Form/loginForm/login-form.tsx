@@ -63,9 +63,9 @@ const LoginForm = () => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Controller
-                  name="email"
+                  name='email'
                   control={control}
-                  defaultValue=""
+                  defaultValue=''
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -82,9 +82,9 @@ const LoginForm = () => {
               </Grid>
               <Grid item xs={12}>
                 <Controller
-                  name="password"
+                  name='password'
                   control={control}
-                  defaultValue=""
+                  defaultValue=''
                   render={({ field }) => (
                     <TextField
                       {...field}

@@ -14,7 +14,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from '../../Icons/icons';
 import { Box } from '@mui/material';
-import { CustomCards } from '../CustomCards/customCards';
+import { DashBoardScreen } from '../Dashboard/dashBoard';
 
 const drawerWidth = 240;
 
@@ -98,25 +98,25 @@ const MiniDrawer = ({ theme }: any) => {
   return (
     <div className={classes.root}>
       <AppBar
-        position="absolute"
+        position='absolute'
         className={classNames(classes.appBar, open && classes.appBarShift)}
       >
         <Toolbar disableGutters={!open}>
           <IconButton
-            color="inherit"
-            aria-label="Open drawer"
+            color='inherit'
+            aria-label='Open drawer'
             onClick={handleDrawerOpen}
             className={classNames(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
-          <Typography color="inherit" noWrap>
+          <Typography color='inherit' noWrap>
             Mini variant drawer
           </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
-        variant="permanent"
+        variant='permanent'
         classes={{
           paper: classNames(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
@@ -134,7 +134,7 @@ const MiniDrawer = ({ theme }: any) => {
       </Drawer>
       <main className={classes.content}>
         <Box>
-          <CustomCards />
+          <DashBoardScreen/>
         </Box>
       </main>
     </div>

@@ -17,9 +17,9 @@ const cardData = [
 export const CustomCards = () => {
   return (
     <Box>
-      <Grid container spacing={2} className='grid_container'>
+      <Grid container spacing={3} className='grid_container'>
         {cardData.map((card, index) => (
-          <Grid item xs={4} key={index} className='grid_item' style={{ marginTop: 60, paddingTop: 50, maxWidth: '25%' }}>
+          <Grid item xs={12} md={6} lg={3} key={index} className='grid_item' style={{ marginTop: 60, paddingTop: 50, maxWidth: '25%' }}>
             <Box className='item_box'>
               <Paper elevation={2}
                 style={{ borderRadius: '0.75rem', display: 'flex', flexDirection: 'column', marginLeft: 30 }}>
