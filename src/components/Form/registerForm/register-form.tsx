@@ -35,6 +35,12 @@ const validationSchema = yup.object().shape({
     .matches(/^\d+$/, 'Phone Number must contain only numeric characters'),
 });
 
+const inputFields = [
+  { name: 'name', label: 'Name' },
+  { name: 'email', label: 'Email' },
+  { name: 'password', label: 'Password' },
+  { name: 'phoneNumber', label: 'Phone Number' },
+];
 
 const RegisterForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -64,83 +70,27 @@ const RegisterForm = () => {
           <Box>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Controller
-                    name='name'
-                    control={control}
-                    defaultValue=''
-                    render={({ field }) => (
-                      <TextField
-                        {...field}
-                        id='outlined-basic'
-                        label='Name'
-                        name='name'
-                        variant='outlined'
-                        className='text-field'
-                        fullWidth
-                        error={!!errors.name}
-                        helperText={errors.name?.message}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Controller
-                    name='email'
-                    control={control}
-                    defaultValue=''
-                    render={({ field }) => (
-                      <TextField
-                        {...field}
-                        id='outlined-basic'
-                        label='Email'
-                        name='email'
-                        variant='outlined'
-                        fullWidth
-                        error={!!errors.email}
-                        helperText={errors.email?.message}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Controller
-                    name='password'
-                    control={control}
-                    defaultValue=''
-                    render={({ field }) => (
-                      <TextField
-                        {...field}
-                        id='outlined-basic'
-                        label='Password'
-                        name='password'
-                        variant='outlined'
-                        fullWidth
-                        error={!!errors.password}
-                        helperText={errors.password?.message}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Controller
-                    name='phoneNumber'
-                    control={control}
-                    defaultValue=''
-                    render={({ field }) => (
-                      <TextField
-                        {...field}
-                        id='outlined-basic'
-                        label='Phone Number'
-                        variant='outlined'
-                        name='phoneNumber'
-                        fullWidth
-                        error={!!errors.phoneNumber}
-                        helperText={errors.phoneNumber?.message}
-                      />
-                    )}
-                  />
-                </Grid>
+              {inputFields.map((field) => (
+                  <Grid item xs={12} key={field.name}>
+                    <Controller
+                      name={field.name as "name" | "email" | "password" | "phoneNumber"}
+                      control={control}
+                      defaultValue=''
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          id='outlined-basic'
+                          label={field.name}
+                          variant='outlined'
+                          className='text-field'
+                          fullWidth
+                          error={!!errors[field.name]}
+                          helperText={errors[field.name]?.message}
+                        />
+                      )}
+                    />
+                  </Grid>
+                ))}
                 <Grid item xs={12} style={{ textAlign: 'center' }}>
                   <Button variant='contained' color='primary'
                     style={{ textTransform: 'none' }}
