@@ -25,6 +25,10 @@ const validationSchema = yup.object().shape({
   password: yup.string().required('Password is required'),
 });
 
+const inputFields = [
+  { name: 'email' },
+  { name: 'password' }
+];
 
 const LoginForm = () => {
 
@@ -61,44 +65,27 @@ const LoginForm = () => {
           </Box>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Controller
-                  name='email'
-                  control={control}
-                  defaultValue=''
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      name='email'
-                      id='outlined-basic'
-                      label='Email'
-                      variant='outlined'
-                      fullWidth
-                      error={!!errors.email}
-                      helperText={errors.email?.message}
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Controller
-                  name='password'
-                  control={control}
-                  defaultValue=''
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      name='password'
-                      id='outlined-basic'
-                      label='Password'
-                      variant='outlined'
-                      fullWidth
-                      error={!!errors.password}
-                      helperText={errors.password?.message}
-                    />
-                  )}
-                />
-              </Grid>
+            {inputFields.map((field) => (
+              <Grid item xs={12} key={field.name}>
+              <Controller
+                name={field.name as "email" | "password"}
+                control={control}
+                defaultValue=''
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    id='outlined-basic'
+                    label={field.name}
+                    variant='outlined'
+                    className='text-field'
+                    fullWidth
+                    error={!!errors[field.name]}
+                    helperText={errors[field.name]?.message}
+                  />
+                )}
+              />
+            </Grid>
+          ))}
               <Grid item xs={12} style={{ textAlign: 'center' }}>
                 <Button variant='contained'
                   color='primary'
