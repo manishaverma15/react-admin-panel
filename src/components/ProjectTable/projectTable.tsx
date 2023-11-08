@@ -9,38 +9,40 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import DoneIcon from '@mui/icons-material/Done';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { XdIcon } from '../../svg/xdIcon';
+import { JiraIcon } from '../../svg/jiraIcon';
+import { SlackIcon } from '../../svg/slackIcon';
+import { AppWrite } from '../../svg/appWrtieIocn';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import { AzureIcon } from '../../svg/azureIcon';
+import LinearProgress from '@mui/material/LinearProgress';
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-) {
-  return { name, calories, fat, carbs, protein };
-}
 
 function projectData(
-  companieName: string,
-  companyMembers: string,
-  budget: number,
-  completion: string
+  icon: React.ReactNode,
+  companyName: string,
+  companyMembers: React.ReactNode[],
+  budget: string,
+  completion: React.ReactNode
 ) {
-  return { companieName, companyMembers, budget, completion }
+  return { icon, companyName, companyMembers, budget, completion }
 }
 
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+  projectData(<XdIcon />, 'Material UI XD Version', [<Avatar src='/avatarOne.jpg' />,
+  <Avatar src='/avatarTwo.jpg' />], '$140000',  <LinearProgress variant="determinate" value={60} />),
+  projectData(<JiraIcon />, 'Add Progress Track', [<Avatar src='../../../../public/images/avatarOne.jpg' />,
+  <Avatar src='../../../../public/images/avatarTwo.jpg' />], '$3000', <LinearProgress variant="determinate" value={10} />),
+  projectData(<SlackIcon />, 'Fix Platform Errors', [<Avatar src='../../../../public/images/avatarOne.jpg' />,
+  <Avatar src='/avatarTwo.jpg' />], '$16000', <LinearProgress variant="determinate" value={90} />),
+  projectData(<AppWrite />, 'Launch our Mobile App', [<Avatar src='../../../../public/images/avatarOne.jpg' />,
+  <Avatar src='../../../../public/images/avatarTwo.jpg' />], 'Not set', <LinearProgress variant="determinate" value={100} />),
+  projectData(<AzureIcon />, 'Cloud Computing Platform', [<Avatar src='../../../../public/images/avatarOne.jpg' />,
+  <Avatar src='../../../../public/images/avatarTwo.jpg' />], '$20,500', <LinearProgress variant="determinate" value={40} />),
 ];
 
-const projectRows = [
-  // projectData()
-]
 
 export const ProjectTable = () => {
   return (
@@ -73,15 +75,26 @@ export const ProjectTable = () => {
                 <TableBody>
                   {rows.map((row) => (
                     <TableRow
-                      key={row.name}
+                      key={row.companyName}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        <Box style={{ display: 'flex', alignItems: 'center' }}>
+                          {row.icon}
+                          <span style={{ marginLeft: '8px' }}>{row.companyName}</span>
+                        </Box>
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
+                      <TableCell align="right">
+                        <Stack direction="row" spacing={1}>
+                          {row.companyMembers?.map((memberIcon, index) => (
+                            React.isValidElement(memberIcon) ? (
+                              <Avatar key={index} src={(memberIcon.props as any).src} alt={`Member ${index + 1}`} />
+                            ) : null
+                          ))}
+                        </Stack>
+                      </TableCell>
+                      <TableCell align="right">{row.budget}</TableCell>
+                      <TableCell align="right">{row.completion}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
