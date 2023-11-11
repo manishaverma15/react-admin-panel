@@ -17,6 +17,7 @@ import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { AzureIcon } from '../../svg/azureIcon';
 import LinearProgress from '@mui/material/LinearProgress';
+import { OrdersOverView } from '../OrdersOverview/ordersOverView';
 
 
 function projectData(
@@ -32,7 +33,7 @@ function projectData(
 
 const rows = [
   projectData(<XdIcon />, 'Material UI XD Version', [<Avatar src='/avatarOne.jpg' />,
-  <Avatar src='/avatarTwo.jpg' />], '$140000',  <LinearProgress variant="determinate" value={60} />),
+  <Avatar src='/avatarTwo.jpg' />], '$140000', <LinearProgress variant="determinate" value={60} />),
   projectData(<JiraIcon />, 'Add Progress Track', [<Avatar src='../../../../public/images/avatarOne.jpg' />,
   <Avatar src='../../../../public/images/avatarTwo.jpg' />], '$3000', <LinearProgress variant="determinate" value={10} />),
   projectData(<SlackIcon />, 'Fix Platform Errors', [<Avatar src='../../../../public/images/avatarOne.jpg' />,
@@ -48,7 +49,7 @@ export const ProjectTable = () => {
   return (
     <Box>
       <Grid container spacing={3} className='grid_container'>
-        <Grid item xs={12} className='project_grid_item'>
+        <Grid item xs={12} md={6} className='project_grid_item'>
           <Paper className='table_paper'>
             <Box className='table_heading'>
               <Box>
@@ -63,7 +64,7 @@ export const ProjectTable = () => {
               </Box>
             </Box>
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <Table aria-label="simple table">
                 <TableHead >
                   <TableRow>
                     <TableCell className='table_cell'>COMPANIES</TableCell>
@@ -101,6 +102,9 @@ export const ProjectTable = () => {
               </Table>
             </TableContainer>
           </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} className='order_grid_item'>
+          <OrdersOverView />
         </Grid>
       </Grid>
     </Box>

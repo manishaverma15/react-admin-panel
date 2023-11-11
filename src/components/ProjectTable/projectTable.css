@@ -89,10 +89,35 @@
   border-bottom: 0.0625rem solid rgb(240, 242, 245);
 }
 
+.order_grid_item {
+  padding-left: 24px;
+  padding-top: 24px;
+}
+
+
 @media screen and (min-width: 992px) {
   .project_grid_item {
     flex-basis: 66.6667%;
     flex-grow: 0;
     max-width: 66.6667%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .order_grid_item {
+    flex-basis: 33.3333%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 33.3333%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .order_grid_item {
+    flex-basis: 33.3333%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 33.3333%;
+    
   }
 }
